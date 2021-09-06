@@ -3,24 +3,13 @@ var gameState=0;
 var maze, mazeImg;
 var player, playerImg;
 var startButton, startButtonImg;
-var decayedTeeth, decayedTeethImg//use for game over
-var gameOver, gameOverImg
-var restart, restartImg;
+
 var division1, division2, division3, division4, division5, division6, division7, division8, division9, division10, division11, division12, division13, division14, division15, division16, division17, division18, division19, division20;
 var  division21, division22, division23, division24, division25, division26, division27, division28, division29, division30, division31, division32, division33, division34, division35, division36, division36, division37, division38, division39, division40;
-var mouth, mouthImg;
-var homeScreen, homeScreenImg;//the home page with words on
-var toothGif, toothGifImg;
-var scene, sceneImg;//the blue and white dentist background
-var dentalArrPosition = [[295, 100],[295, 300],[335, 800],[335, 400]];
-var mazePosition = [[400, 110, 10, 150],[299, 150, 70, 10]]
-var grpDivision;
-var score = 0;
-var heart1, heart1Img, heart2Img
-var lives, livesImg
 
-var feedBack, feedBackImg
-var goodFeedback1, goodFeedback1Img, goodFeedback2, goodFeedback2Img, goodFeedback3, goodFeedback3Img;
+var homeScreen, homeScreenImg;//the home page with words on
+var scene, sceneImg;//the blue and white dentist background
+var grpDivision;
 
 var candy1, candy1Img, candy2, candy2Img, candy3, candy3Img, candy4, candy4Img;
 var candy5, candy5Img, candy6, candy6Img, candy7, candy7Img, candy8, candy8Img;
@@ -34,13 +23,8 @@ var lifeleft = 2;
 var flagPosition =0;
 
 function preload(){
-  toothGifImg = loadImage("toothGif.gif");
-  toothGif = loadImage("toothGif.gif");
-
   mazeImg = loadImage("tooth.png");
-  decayedTeethImg = loadImage("decayedTeeth.png")
   playerImg = loadImage("player.png");
-  mouthImg = loadImage("mouth.png");
   startButtonImg = loadImage("start.png");
   homeScreenImg = loadImage("homePage.png");
   sceneImg = loadImage("background.jpeg");
@@ -58,19 +42,6 @@ function preload(){
   healthy2Img = loadImage("goodFood2.png");
   healthy3Img = loadImage("goodFood3.png");
   healthy4Img = loadImage("goodFood4.png");
-
-  feedBackImg = loadImage("livesLeftImg.png");//bad feedback
-
-  heart1Img = loadImage("hearts1.png");
-  heart2Img = loadImage("hearts1.png");
-  livesImg = loadImage("lives.png");
-
-  goodFeedback1Img = loadImage("goodFeedback1.png");//yay!
-  goodFeedback2Img = loadImage("goodFeedback2.png");//wow!
-  goodFeedback3Img = loadImage("goodFeedback3.png");//well done!
-
-  gameOverImg = loadImage("gameOver.png");
-  restartImg = loadImage("restart.png");
 }
 
 
@@ -169,58 +140,7 @@ function setup(){
   healthy4.setCollider("rectangle",0,0,2, 2);
   healthy4.debug = false
 
-  box = createSprite(530, 540, 150, 150);
-  box.shapeColor = "pink";
-
-  mouth = createSprite(140, 590, 20, 20);
-  mouth.addImage(mouthImg);
-  mouth.scale = 0.19;
-
-  lives = createSprite(520, 570, 20, 20);
-  lives.addImage(livesImg);
-  lives.scale = 0.2;
-
-  heart1 = createSprite(530, 600, 20, 20);
-  heart1.addImage(heart1Img);
-  heart1.scale = 0.2;
-  heart1.visible = true;
-
-  heart2 = createSprite(580, 600, 20, 20);
-  heart2.addImage(heart1Img);
-  heart2.scale = 0.2;
-  heart1.visible = true;
-
-  feedBack = createSprite(300, 350);
-  feedBack.addImage(feedBackImg);
-  feedBack.scale = 0.5
-  feedBack.visible = false
-
   
-  goodFeedback1 = createSprite(50, 50);
-  goodFeedback1.addImage(goodFeedback1Img);
-  goodFeedback1.scale = 0.55
-  goodFeedback1.visible = false
-
-  goodFeedback2 = createSprite(550, 200);
-  goodFeedback2.addImage(goodFeedback2Img);
-  goodFeedback2.scale = 0.55
-  goodFeedback2.visible = false
-
-  goodFeedback3 = createSprite(520, 400);
-  goodFeedback3.addImage(goodFeedback3Img);
-  goodFeedback3.scale = 0.55
-  goodFeedback3.visible = false
-
-  gameOver = createSprite(280, 350, 1000, 1200);
-  gameOver.addImage(gameOverImg);
-  gameOver.scale = 0.54
-  gameOver.visible = false
-
-  restart = createSprite(400, 640);
-  restart.addImage(restartImg);
-  restart.scale = 0.1
-  restart.visible = false
-
   homeScreen = createSprite(300, 350);
   homeScreen.addImage(homeScreenImg);
   homeScreen.visible = true
@@ -236,32 +156,6 @@ function setup(){
 
 function draw() {
   background(79, 200, 233);
-
-  if (frameCount%50 === 0 && flagPosition === 0){
-    candy1.x += 20;
-    candy2.y -=20;
-    candy3.y -=10;
-    flagPosition = 1;
-  }
-  else if (frameCount%55 === 0 && flagPosition === 1){
-    flagPosition = 0;
-    candy4.y +=10;
-    candy5.y -=10;
-    candy6.y +=10;
-  }
-
-  if (frameCount%60 === 0 && flagPosition === 0){
-    candy7.x +=10;
-    candy8.x -=10;
-    healthy1.y -=10;
-    flagPosition = 1;
-  }
-  else if (frameCount%65 === 0 && flagPosition === 1){
-    flagPosition = 0;
-    healthy2.x +=10;
-    healthy3.y +=10;
-    healthy4.x +=10;
-  }
 
   if (mousePressedOver(startButton)&&gameState===0) {
     startButton.visible = false;
@@ -283,86 +177,24 @@ function draw() {
 
 
    if(player.isTouching(healthy1)){
-    score = score+1;
     healthy1.destroy();
     goodFeedback1.visible = true
   }
 if(player.isTouching(healthy2)){
-    score = score+1
     healthy2.destroy()
     goodFeedback2.visible = true
   }
 
   if(player.isTouching(healthy3)){
-    score = score+1
     healthy3.destroy()
     goodFeedback3.visible = true
   }
 
   if(player.isTouching(healthy4)){
-    score = score+1
     healthy4.destroy()
     goodFeedback1.visible = true
   }
  
-
-  if(player.isTouching(candyGrp)){
-    for (var i = 0; i < candyGrp.length; i++) {
-      //console.log(candyGrp.get(i))
-      if (player.isTouching(candyGrp.get(i))){
-       // console.log(tempCandy);
-       var tempCandy = candyGrp.get(i);
-       tempCandy.destroy();
-        lifeleft-=1;
-        //console.log(lifeleft);
-      }
-    }
-    if (lifeleft === 1 )
-      heart1.visible = false;
-
-      else if (lifeleft === 0 )
-        heart2.visible = false;
-  }
-
-  if(lifeleft === 1){
-    feedBack.visible = true
-    feedBack.lifetime = 2;
-  }
-  if(lifeleft === 0){
-    gameOver.visible = true
-    restart.visible = true
-  }
-  if(score == 5){
-    gameOver.visible = true
-    restart.visible = true
-  }
-
-  if (mousePressedOver(restart)) {
-    startButton.visible = true;
-    gameState=0;
-    homeScreen.visible = true
-    gameOver.visible = false
-    restart.visible = false
-    candy1.x = 130;
-    candy2.y =300;
-    candy3.y =130;
-    candy4.y = 120;
-    candy5.y =280;
-    candy6.y =340;
-    candy7.x =350;
-    candy8.x =100;
-    score === 0
-    lifeleft = 2
-    player.visible = true
-    feedBack.visible = false
-    goodFeedback1.visible = false
-    goodFeedback2.visible = false
-    goodFeedback3.visible = false
-    player.x = 140;
-    player.y = 550;
-  }  
-  
-
   
  
   if (keyDown("up")) {
@@ -1858,7 +1690,7 @@ function mazeCreation(){
 
 }
 
-feedBack
+
 function destroyHeart1(){
   if(player.isTouching(candy1)){
     heart1.destroy()
